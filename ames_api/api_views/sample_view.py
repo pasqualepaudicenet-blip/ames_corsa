@@ -9,4 +9,4 @@ class SampleViewSet(viewsets.ModelViewSet):
     serializer_class = SampleSerializer
 
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['sampleId', 'sampleName']
+    filterset_fields = ['sample_id', 'sample_name']

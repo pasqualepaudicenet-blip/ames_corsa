@@ -11,11 +11,12 @@ class Corsa(models.Model):
     derivatiopn_path = models.CharField(max_length=500, blank=True, null=True)
 
 class Sample(models.Model):
-    sampleId = models.IntegerField(primary_key=True)
-    sampleName =  models.CharField(max_length=255)
+    sample_id = models.CharField(null=True, max_length=255)
+    sample_name =  models.CharField(max_length=255)
     corsa = models.ForeignKey(
         Corsa, 
         on_delete=models.CASCADE, 
-        related_name='samples'
+        related_name='samples',
+        null=True,
     )
     

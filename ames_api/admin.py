@@ -12,6 +12,6 @@ class CorsaAdmin(admin.ModelAdmin):
 
 @admin.register(Sample)
 class SampleAdmin(admin.ModelAdmin):
-    list_display = ('sampleId', 'sampleName', 'corsa')
-    search_fields = ('sampleName',)
+    list_display = ('sample_id', 'sample_name', 'corsa')
+    search_fields = ('sample_name',)
     list_filter = ('corsa',)

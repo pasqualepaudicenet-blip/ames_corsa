@@ -11,7 +11,7 @@ class UserSerializer(serializers.ModelSerializer):
 class SampleCorsaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sample
-        fields = ['sampleId', 'sampleName']
+        fields = ['sample_id', 'sample_name']
 
 class CorsaSerializer(serializers.ModelSerializer):
     samples = SampleCorsaSerializer(many=True, read_only=True)
@@ -42,8 +42,8 @@ class SampleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sample
         fields = [
-            'sampleId', 
-            'sampleName', 
+            'sample_id', 
+            'sample_name', 
             'corsa'
             ]
         
