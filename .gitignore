@@ -6,3 +6,4 @@ db.sqlite3
 ames_frontend/node_modules/
 ames_frontend/dist/
 .vscode/
+ames_api/migrations/
