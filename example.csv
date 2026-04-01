@@ -1,0 +1,11 @@
+ID,SAMPLEID,SAMPLENAME,DATA,CATEGORIA,VALORE,STATO
+1,SMP-001,Alfa_Test,2023-10-01,Chimica,85.5,Approvato
+2,SMP-002,Beta_Lab,2023-10-02,Biologia,42.0,In attesa
+3,SMP-003,Gamma_Ref,2023-10-02,Fisica,120.3,Approvato
+4,SMP-004,Delta_X,2023-10-03,Chimica,12.7,Rifiutato
+5,SMP-005,Epsilon_V2,2023-10-04,Biologia,98.1,Approvato
+6,SMP-006,Zeta_Trial,2023-10-05,Fisica,55.4,In revisione
+7,SMP-007,Eta_Check,2023-10-05,Chimica,77.2,Approvato
+8,SMP-008,Theta_Final,2023-10-06,Biologia,33.9,Rifiutato
+9,SMP-009,Iota_New,2023-10-07,Fisica,150.0,Approvato
+10,SMP-010,Kappa_Sample,2023-10-08,Chimica,64.8,In attesa
