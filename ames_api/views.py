@@ -40,7 +40,7 @@ def import_local_csv(request):
 
     # Verifica se il file esiste davvero
     if not os.path.exists(file_path):
-        return HttpResponse("Errore: Il file CSV non è stato trovato nella cartella 'dawta'.")
+        return HttpResponse("Errore: Il file CSV non è stato trovato nella cartella data.")
 
     try:
         with open(file_path, mode='r', encoding='utf-8') as csv_file:
