@@ -23,7 +23,7 @@ class CorsaSerializer(serializers.ModelSerializer):
             'date', 
             'description', 
             'type', 
-            'derivatiopn_path',
+            'derivation_path',
             'samples'
                 ]
 class CorsaSampleSerializer(serializers.ModelSerializer):
@@ -33,7 +33,7 @@ class CorsaSampleSerializer(serializers.ModelSerializer):
             'date', 
             'description', 
             'type', 
-            'derivatiopn_path',
+            'derivation_path',
                 ]
 
 class SampleSerializer(serializers.ModelSerializer):

@@ -8,7 +8,7 @@ class Corsa(models.Model):
     date = models.DateField(null=True)
     description = models.CharField(max_length=255)
     type = models.CharField(max_length=50)
-    derivatiopn_path = models.CharField(max_length=500, blank=True, null=True)
+    derivation_path = models.CharField(max_length=500, blank=True, null=True)
 
 class Sample(models.Model):
     sample_id = models.CharField(null=True, max_length=255)
