@@ -2,10 +2,10 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .api_views.user_view import UserViewSet
-from .api_views.corsa_view import CorsaViewSet
+from .api_views.corsa_view import CorsaViewSet, CorsaSampleCreateView
 from .api_views.sample_view import SampleViewSet
 from .views import import_local_csv
-from .api_views.get_corsa_data_view import CorsaSampleCreateView
+#from .api_views.get_corsa_data_view import CorsaSampleCreateView
 
 corsa_list_view = CorsaSampleCreateView.as_view()
 
