@@ -20,11 +20,11 @@ const router = createRouter({
                         },
                       },
                       {
-                        path: 'dashboard',
-                        name: 'Dashboard',
-                        component: () => import('@/views/Dashboard.vue'),
+                        path: 'corse-list',
+                        name: 'CorseList',
+                        component: () => import('@/views/CorseList.vue'),
                         meta: {
-                          title: 'Dashboard',
+                          title: 'Lista corse',
                         },
                       },
                       {
