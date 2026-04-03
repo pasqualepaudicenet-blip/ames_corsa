@@ -2,15 +2,18 @@ import os
 import re
 from django.http import JsonResponse, HttpResponse
 from django.views import View
+import csv
 
-class CorsaListView(View):
+class CorsaSampleCreateView(View):
     path = "/mnt/nas/NovaSeq"
     pattern = re.compile(
-        r'^(?P<date>\d{6})_A(?P<machine>\d+)_(?P<run>\d{4})_(?P<code>[A-Z0-9]+)$'
+        r'^(?P<date>\d{6})_A(?P<description>\d+)_(?P<run>\d{4})_(?P<code>[A-Z0-9]+)$'
     )
     def get(self, request, *args, **kwargs):
         try:
             results = self.get_folders()
+            for folder in results:
+                folder['samples'] = self.read_samplesheet(folder['original'],)
             return JsonResponse({"results": results})
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=500)
@@ -31,12 +34,35 @@ class CorsaListView(View):
                 results.append({
                     "original": name,
                     "date": formatted_date,
-                    "machine": f"A{data['machine']}",
+                    "description": f"A{data['description']}",
                     "run": data["run"],
-                    "code": data["code"]
+                    "code": data["code"],
+                    "derivation_path": f"192.168.0.232/NovaSeq/NovaSeq/{name}"
                 })
         return results
 
+    
+    def read_samplesheet(self, folder_path):
+        csv_path = f'{self.path}/{os.path.join(folder_path, "SampleSheet.csv")}'
+        print(csv_path)
+        samples = []
+
+        if os.path.exists(csv_path):
+            with open(csv_path, newline='', encoding='utf-8') as f:
+                # salta le righe fino a [Data]
+                for line in f:
+                    if line.strip() == "[Data]":
+                        break
+                # ora il reader legge la riga successiva come header
+                reader = csv.DictReader(f)
+                for row in reader:
+                    if 'Sample_ID' in row and 'Sample_Name' in row:
+                        samples.append({
+                            "Sample_ID": row['Sample_ID'],
+                            "Sample_Name": row['Sample_Name']
+                        })
+        return samples
+    
     def export_csv(self, request, *args, **kwargs):
         """Esporta i risultati in un CSV"""
         try:
@@ -44,7 +70,7 @@ class CorsaListView(View):
             response = HttpResponse(content_type='text/csv')
             response['Content-Disposition'] = 'attachment; filename="folders.csv"'
 
-            writer = csv.DictWriter(response, fieldnames=["original", "date", "machine", "run", "code"])
+            writer = csv.DictWriter(response, fieldnames=["original", "date", "description", "run", "code"])
             writer.writeheader()
             for row in results:
                 writer.writerow(row)
@@ -52,42 +78,4 @@ class CorsaListView(View):
             return response
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=500)
-        path = "/mnt/nas/NovaSeq"
-        #pattern = re.compile(r'^\d{6}_A\d+_\d{4}_[A-Z0-9]+$')
-
-        pattern = re.compile(
-            r'^(?P<date>\d{6})_A(?P<machine>\d+)_(?P<run>\d{4})_(?P<code>[A-Z0-9]+)$'
-        )
-
-        results = []
-        try:
-            for name in os.listdir(path):
-                match = pattern.match(name)
-                if match:
-                    data = match.groupdict()
-
-                    yy = int(data["date"][:2])
-                    mm = data["date"][2:4]
-                    dd = data["date"][4:6]
-                        
-                    year = 2000 + yy  
-                    formatted_date = f"{year}-{mm}-{dd}"
-
-                    results.append({
-                        "original": name,
-                        "date": formatted_date,
-                        "machine": f"A{data['machine']}",
-                        "run": data["run"],
-                        "code": data["code"]
-                    })
-            return JsonResponse({"results": results})
-        except Exception as e:
-            return JsonResponse({"error": str(e)}, status=500)
-    #try:
-    #    folders = [
-    #        name for name in os.listdir(path)
-    #        if os.path.isdir(os.path.join(path, name)) and pattern.match(name)
-    #    ]
-    #    return JsonResponse({"folders": folders})
-    #except Exception as e:
-    #    return JsonResponse({"error": str(e)}, status=500)
+       
