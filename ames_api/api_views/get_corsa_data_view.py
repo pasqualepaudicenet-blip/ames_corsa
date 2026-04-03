@@ -1,8 +1,10 @@
 import os
 import re
+import csv
+import xml.etree.ElementTree as ET
 from django.http import JsonResponse, HttpResponse
 from django.views import View
-import csv
+
 
 class CorsaSampleCreateView(View):
     path = "/mnt/nas/NovaSeq"
@@ -31,20 +33,21 @@ class CorsaSampleCreateView(View):
                 year = 2000 + yy
                 formatted_date = f"{year}-{mm}-{dd}"
 
+                exp_type = self.read_run_parameters(name)
+
                 results.append({
                     "original": name,
                     "date": formatted_date,
                     "description": f"A{data['description']}",
+                    "type":exp_type,
                     "run": data["run"],
                     "code": data["code"],
                     "derivation_path": f"192.168.0.232/NovaSeq/NovaSeq/{name}"
                 })
         return results
-
     
     def read_samplesheet(self, folder_path):
         csv_path = f'{self.path}/{os.path.join(folder_path, "SampleSheet.csv")}'
-        print(csv_path)
         samples = []
 
         if os.path.exists(csv_path):
@@ -62,6 +65,23 @@ class CorsaSampleCreateView(View):
                             "Sample_Name": row['Sample_Name']
                         })
         return samples
+    
+    def read_run_parameters(self, folder_name):
+        """Legge RunParameters.xml e ritorna il valore di <ExperimentName>"""
+
+        folder_path = os.path.join(self.path, folder_name)
+        xml_path = os.path.join(folder_path, "RunParameters.xml")
+        if os.path.exists(xml_path):
+            try:
+                tree = ET.parse(xml_path)
+                root = tree.getroot()
+                # trova il primo ExperimentName
+                exp_name = root.findtext('ExperimentName')
+                if exp_name:
+                    return exp_name
+            except ET.ParseError:
+                pass
+        return None
     
     def export_csv(self, request, *args, **kwargs):
         """Esporta i risultati in un CSV"""
