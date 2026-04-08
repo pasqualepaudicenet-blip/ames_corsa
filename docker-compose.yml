@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=${SQL_PASSWORD}
+    ports:
+      - "${SQL_PORT}:1433"
+    
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+
+  web:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - DB_HOST=${SQL_HOST}
+      - DB_NAME=${SQL_DB}
+      - DB_USER=${SQL_USER}
+      - DB_PASSWORD=${SQL_PASSWORD}
+    env_file:
+      - .env
+    depends_on:
+      - db
+
+  frontend: # Vue
+    build: ./ames_frontend 
+    volumes:
+      - ./ames_frontend:/app
+      - /app/node_modules 
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://web:8000 # Se usi Vite
+    depends_on:
+      - web
+
+
+volumes:
+  sqlserver_data:
