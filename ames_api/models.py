@@ -6,8 +6,8 @@ class CustomUser(AbstractUser):
 
 class Corsa(models.Model):
     date = models.DateField(null=True)
-    description = models.CharField(max_length=255)
-    type = models.CharField(max_length=50)
+    description = models.CharField(max_length=255, db_index=True)
+    type = models.CharField(max_length=50, db_index=True)
     derivation_path = models.CharField(max_length=500, blank=True, null=True)
 
 class Sample(models.Model):
