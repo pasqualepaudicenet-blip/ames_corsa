@@ -8,18 +8,38 @@ from ames_api.serializers import CorsaSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 from django.http import JsonResponse, HttpResponse
 from django.views import View
+from rest_framework.pagination import PageNumberPagination
+from django.db.models import Q
+
+class DieciProdottiPagination(PageNumberPagination):
+    page_size = 10
+
 
 class CorsaViewSet(viewsets.ModelViewSet):
     queryset = Corsa.objects.all()
     serializer_class = CorsaSerializer
+    pagination_class = DieciProdottiPagination
+    #filter_backends = [DjangoFilterBackend]
+    #filterset_fields = ['description', 'type']
 
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['description', 'type']
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        description = self.request.query_params.get('description', None)
+        tipo = self.request.query_params.get('type', None)
 
+        filters = Q()
+        if description:
+            filters &= Q(description__icontains=description)
+        if tipo:
+            filters &= Q(type__icontains=tipo)
+
+        if filters:
+            queryset = queryset.filter(filters)
+        return queryset 
 
 class CorsaSampleCreateView(View):
     #path = "/mnt/nas/NovaSeq"
-    path = "./NovaSeq"
+    path = "/app/novaSeq"
     pattern = re.compile(
         r'^(?P<date>\d{6})_A(?P<description>\d+)_(?P<run>\d{4})_(?P<code>[A-Z0-9]+)$'
     )

@@ -1,11 +1,7 @@
-
-
-
 <template>
     <admin-layout>
-
     <h1 class="text-center mb-3">Gestione Corse</h1>
-    <BasicTableOne :data="corse" />
+    <BasicTableOne :data="corse" :fetchCorse="fetchCorse" :apiUrl="apiUrl" />
     </admin-layout>
 
 </template>
@@ -18,17 +14,23 @@ import axios from 'axios'
 
 const corse = ref([])
 const errore = ref(null)
+const apiUrl = 'http://127.0.0.1:8000/api/corsas/'
 
-// Funzione per recuperare le corse dal tuo backend Django
-const fetchCorse = async () => {
+// Funzione per recuperare le corse dal backend
+// L’URL può già contenere query params costruiti dal figlio
+const fetchCorse = async (url = apiUrl) => {
   try {
-    const response = await axios.get('http://127.0.0.1:8000/api/corsas/')
-    corse.value = response.data.results
+    const response = await axios.get(url)
+    corse.value = response.data
   } catch (err) {
     errore.value = "Errore nel caricamento dati: " + err.message
   }
 }
+
+// Carica dati iniziali
 onMounted(() => {
-  fetchCorse()
+  fetchCorse() // usa l’URL di default, senza filtri
 })
 </script>
+
+
