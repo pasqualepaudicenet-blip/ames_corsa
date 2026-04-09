@@ -18,7 +18,8 @@ class CorsaViewSet(viewsets.ModelViewSet):
 
 
 class CorsaSampleCreateView(View):
-    path = "/mnt/nas/NovaSeq"
+    #path = "/mnt/nas/NovaSeq"
+    path = "./NovaSeq"
     pattern = re.compile(
         r'^(?P<date>\d{6})_A(?P<description>\d+)_(?P<run>\d{4})_(?P<code>[A-Z0-9]+)$'
     )

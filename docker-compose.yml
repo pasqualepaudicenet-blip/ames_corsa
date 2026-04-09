@@ -16,6 +16,8 @@ services:
     build: .
     volumes:
       - .:/app
+      - /mnt/nas/NovaSeq:/app/novaSeq
+
     ports:
       - "8000:8000"
     environment:
