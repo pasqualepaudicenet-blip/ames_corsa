@@ -18,19 +18,23 @@ class CorsaViewSet(viewsets.ModelViewSet):
 
 
 class CorsaSampleCreateView(View):
-    path = "/mnt/nas/NovaSeq"
+    path = "/mnt/novaseq"
     pattern = re.compile(
         r'^(?P<date>\d{6})_A(?P<description>\d+)_(?P<run>\d{4})_(?P<code>[A-Z0-9]+)$'
     )
     def get(self, request, *args, **kwargs):
+
         try:
             results = self.get_folders()
+
             return JsonResponse({"results": results})
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=500)
 
     def get_folders(self):
         saved_corse = []
+        print('os.listdir(self.path):  ', os.listdir(self.path))
+
         for name in os.listdir(self.path):
             match = self.pattern.match(name)
             if match:
