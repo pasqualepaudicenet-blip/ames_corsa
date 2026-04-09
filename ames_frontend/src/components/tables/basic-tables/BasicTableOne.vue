@@ -1,7 +1,15 @@
 <template>
   <div class="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
     <div class="max-w-full overflow-x-auto custom-scrollbar">
-      <input v-model="searchDesc"  type="search" class="px-2 ml-4 mt-2 border border-top form-control mr-sm-2"  placeholder="Descrizione">
+      <div class="search-bar">
+        <div class="input-group">
+            <input v-model="searchDesc"  type="search" class="px-2 ml-4 mt-2 border border-top form-control mr-sm-2"  placeholder="Descrizione">
+            <button class="btn btn-outline-secondary" type="button" id="search-addon">
+                    <i class="fas fa-search"></i>
+                </button>
+        </div>
+    </div>
+      
       <input  v-model="searchType"  type="search" class="px-2 ml-4 mt-2 border border-top form-control mr-sm-2"  placeholder="Tipo">
       <table class="min-w-full">
         <thead>

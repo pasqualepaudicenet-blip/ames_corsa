@@ -5,10 +5,11 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'jsvectormap/dist/jsvectormap.css'
 import 'flatpickr/dist/flatpickr.css'
-
-
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap'
+
 import VueApexCharts from 'vue3-apexcharts'
 
 import App from './App.vue'
