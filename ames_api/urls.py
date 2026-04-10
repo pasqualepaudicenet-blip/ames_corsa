@@ -16,6 +16,7 @@ router.register(r'samples', SampleViewSet, basename='sample_view')
 
 urlpatterns = [
     path('', include(router.urls)),
+    path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
     path('csv/', import_local_csv), 
     path('get-data/', corsa_list_view, name="corsa_list_view"), 
 ]

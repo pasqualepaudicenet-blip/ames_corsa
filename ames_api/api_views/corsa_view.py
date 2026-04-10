@@ -2,7 +2,6 @@ import os
 import re
 import csv
 import xml.etree.ElementTree as ET
-from rest_framework import viewsets, filters
 from ames_api.models import Corsa, Sample
 from ames_api.serializers import CorsaSerializer
 from django_filters.rest_framework import DjangoFilterBackend
@@ -10,6 +9,7 @@ from django.http import JsonResponse, HttpResponse
 from django.views import View
 from rest_framework.pagination import PageNumberPagination
 from django.db.models import Q
+from rest_framework import viewsets, permissions
 
 class DieciProdottiPagination(PageNumberPagination):
     page_size = 10
@@ -19,6 +19,8 @@ class CorsaViewSet(viewsets.ModelViewSet):
     queryset = Corsa.objects.all()
     serializer_class = CorsaSerializer
     pagination_class = DieciProdottiPagination
+    #permission_classes = [permissions.IsAuthenticated]
+
     #filter_backends = [DjangoFilterBackend]
     #filterset_fields = ['description', 'type']
 
