@@ -11,76 +11,116 @@
       <input  v-model="searchType"  type="search" class="px-2   border border-top form-control"  placeholder="Tipo">
     </div>
   </div>
-  <div class="w-100 overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]" >
+  <div class="w-100 overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03] shadow"  >
+    <div data-v-9b3943d3="" class="flex items-center justify-around p-3">
+          <div>
+            <button v-if="data.previous" @click="props.fetchCorse(data.previous)" class="border border-black px-3  bigger-on-hover" title="Pagina precedente">
+               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="24" width="24">
+                  <g id="arrow-dash-left">
+                    <path id="Union" fill="#000000" d="M8.54297 5.54333c0.39054 -0.39029 1.02361 -0.39044 1.41406 0 0.39037 0.39046 0.39027 1.02356 0 1.41407l-4.04297 4.043H12c0.5521 0.0001 1 0.4478 1 1 -0.0002 0.552 -0.448 0.9998 -1 1H5.91406l4.04297 4.0429c0.39037 0.3905 0.39027 1.0236 0 1.4141 -0.39049 0.3905 -1.02353 0.3904 -1.41406 0l-5.75 -5.75c-0.39053 -0.3905 -0.39053 -1.0235 0 -1.4141zM17 11.0004c0.5521 0.0001 1 0.4478 1 1 -0.0002 0.552 -0.448 0.9998 -1 1h-1c-0.5522 0 -0.9998 -0.4479 -1 -1 0 -0.5523 0.4477 -1 1 -1zm4 0c0.5521 0.0001 1 0.4478 1 1 -0.0002 0.552 -0.448 0.9998 -1 1 -0.5522 0 -0.9998 -0.4479 -1 -1 0 -0.5523 0.4477 -1 1 -1" stroke-width="1"></path>
+                  </g>
+              </svg>
+              </button>
+          </div>
+          <div>
+              <button 
+                v-for="page in data.total_pages" 
+                @click="props.fetchCorse(apiUrl + '?page=' + page)" 
+                class="border border-black px-3 bigger-on-hover " 
+                :class="{ 
+                  'bg-primary text-white': data.current_page === page,
+                  'bg-white': data.current_page !== page
+                  }">
+                    {{ page }}
+              </button>
+          </div>
+        <div> 
+          <button   v-if="data.next" @click="props.fetchCorse(data.next)" class="border border-black px-3  bigger-on-hover">
+              <svg class="rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="24" width="24">
+                  <g id="arrow-dash-left">
+                    <path id="Union" fill="#000000" d="M8.54297 5.54333c0.39054 -0.39029 1.02361 -0.39044 1.41406 0 0.39037 0.39046 0.39027 1.02356 0 1.41407l-4.04297 4.043H12c0.5521 0.0001 1 0.4478 1 1 -0.0002 0.552 -0.448 0.9998 -1 1H5.91406l4.04297 4.0429c0.39037 0.3905 0.39027 1.0236 0 1.4141 -0.39049 0.3905 -1.02353 0.3904 -1.41406 0l-5.75 -5.75c-0.39053 -0.3905 -0.39053 -1.0235 0 -1.4141zM17 11.0004c0.5521 0.0001 1 0.4478 1 1 -0.0002 0.552 -0.448 0.9998 -1 1h-1c-0.5522 0 -0.9998 -0.4479 -1 -1 0 -0.5523 0.4477 -1 1 -1zm4 0c0.5521 0.0001 1 0.4478 1 1 -0.0002 0.552 -0.448 0.9998 -1 1 -0.5522 0 -0.9998 -0.4479 -1 -1 0 -0.5523 0.4477 -1 1 -1" stroke-width="1"></path>
+                  </g>
+            </svg>
+        </button>
+        </div>
+       
+      </div>
     <div class=" overflow-x-auto custom-scrollbar" >
-      
-      
-      <table class="vw-75">
-        <thead>
-          <tr class="border-b border-gray-200 dark:border-gray-700">
-            <th class="px-5 py-3 text-left w-3/11 sm:px-6">
-              <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">Data</p>
+      <table class="w-100"  >
+        <thead class="">
+            <th scope="col-1" class="px-5 py-3 text-left w-3/11 text-center sm:px-6">
+              <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400 text-center">Data</p>
             </th>
-            <th class="px-5 py-3 text-left w-2/11 sm:px-6">
+            <th scope="col-1" class="px-2 py-3 text-left w-2/11 text-center sm:px-6">
               <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">Descrizione</p>
             </th>
-            <th class="px-5 py-3 text-left w-2/11 sm:px-6">
+            <th scope="col" class="px-2 py-3 text-left text-center w-2/11 sm:px-6">
               <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">Tipo</p>
             </th>
-            <th class="px-5 py-3 text-left w-2/11 sm:px-6">
-              <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">Path di derivazione</p>
+            <th scope="col" class="px-2 py-3 text-left text-center w-2/11 sm:px-6">
+              <p scope="col" class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">Path di derivazione</p>
             </th>
-            <th class="px-5 py-3 text-left w-2/11 sm:px-6">
-              <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">Azioni</p>
+            <th scope="col" class="px- py-3 text-left text-center w-2/11 sm:px-6">
+              <p class="text-center  font-medium text-gray-500 text-theme-xs dark:text-gray-400">Azioni</p>
             </th>
-          </tr>
         </thead>
         <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
           <tr v-for="corsa in data.results" :key="corsa.id" class="border-t border-gray-100 dark:border-gray-800">
-            <td class=" py-4 sm:px-6">
+            <td class=" py-4 sm:px-2 text-center" >
               {{ corsa.date }}
             </td>
-            <td class=" py-4 sm:px-6">
-              <p class="text-gray-500 text-theme-sm dark:text-gray-400">{{ corsa.description }}</p>
+            <td class=" py-4 text-center sm:px-2">
+              <p class="text-gray-500  text-theme-sm dark:text-gray-400">{{ corsa.description }}</p>
             </td>
-            <td class=" py-4 sm:px-6">
-              <p class="text-gray-500 text-theme-sm dark:text-gray-400">{{ corsa.type }}</p>
+            <td class=" py-4 text-center sm:px-2">
+              <p class="text-gray-500 r text-theme-sm dark:text-gray-400">{{ corsa.type }}</p>
             </td>
-            <td class=" py-4 sm:px-6">
-              <p class="text-gray-500 text-theme-sm dark:text-gray-400">{{ corsa.derivation_path }}</p>
+            <td class=" text-center py-4 sm:px-2">
+              <p class="text-gray-500  text-theme-sm dark:text-gray-400">{{ corsa.derivation_path }}</p>
             </td>
-            <td class=" py-4 sm:px-6 d-flex justify-content-center">
-              <a class="btn btn-primary" title="Dettagli">
+            <td class=" py-4 sm:px-6 d-flex justify-content-center" >
+              <router-link class="btn bg-primary bigger-on-hover" title="Dettagli" :to="{ name: 'CorsaDetail', params: { id: corsa.pk} }">
                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0,0,256,256">
                   <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="none" stroke-linecap="none" stroke-linejoin="none" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.33333,5.33333)"><path d="M31.4,41c-2.3,1 -4.8,1.5 -7.4,1.5c-10.2,0 -18.5,-8.3 -18.5,-18.5c0,-4.5 1.6,-8.6 4.2,-11.8" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path><path d="M16.3,7.2c2.3,-1.1 5,-1.7 7.7,-1.7c10.2,0 18.5,8.3 18.5,18.5c0,4 -1.3,7.7 -3.4,10.7" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="24" cy="16" r="2" fill="#ffffff" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter"></circle><path d="M24,22.5v11" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="miter"></path></g></g>
                 </svg>  
-              </a>
+              </router-link>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
     <div data-v-9b3943d3="" class="px-6 py-4 border-t border-gray-200 dark:border-white/[0.05]">
-      <div data-v-9b3943d3="" class="flex items-center justify-between">
-        <div>
-           <button v-if="data.previous" @click="props.fetchCorse(data.previous)" class="border border-black px-3 rounded" title="Pagina precedente">
-              <img  src="https://img.icons8.com/?size=30&id=WWzSFZsWqPFD&format=png&color=000000" alt="">
-            </button>
+      <div data-v-9b3943d3="" class="flex items-center justify-around">
+          <div>
+            <button v-if="data.previous" @click="props.fetchCorse(data.previous)" class="border border-black px-3  bigger-on-hover" title="Pagina precedente">
+               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="24" width="24">
+                  <g id="arrow-dash-left">
+                    <path id="Union" fill="#000000" d="M8.54297 5.54333c0.39054 -0.39029 1.02361 -0.39044 1.41406 0 0.39037 0.39046 0.39027 1.02356 0 1.41407l-4.04297 4.043H12c0.5521 0.0001 1 0.4478 1 1 -0.0002 0.552 -0.448 0.9998 -1 1H5.91406l4.04297 4.0429c0.39037 0.3905 0.39027 1.0236 0 1.4141 -0.39049 0.3905 -1.02353 0.3904 -1.41406 0l-5.75 -5.75c-0.39053 -0.3905 -0.39053 -1.0235 0 -1.4141zM17 11.0004c0.5521 0.0001 1 0.4478 1 1 -0.0002 0.552 -0.448 0.9998 -1 1h-1c-0.5522 0 -0.9998 -0.4479 -1 -1 0 -0.5523 0.4477 -1 1 -1zm4 0c0.5521 0.0001 1 0.4478 1 1 -0.0002 0.552 -0.448 0.9998 -1 1 -0.5522 0 -0.9998 -0.4479 -1 -1 0 -0.5523 0.4477 -1 1 -1" stroke-width="1"></path>
+                  </g>
+              </svg>
+              </button>
+          </div>
+          <div>
+              <button 
+                v-for="page in data.total_pages" 
+                @click="props.fetchCorse(apiUrl + '?page=' + page)" 
+                class="border border-black px-3 bigger-on-hover " 
+                :class="{ 
+                  'bg-primary text-white': data.current_page === page,
+                  'bg-white': data.current_page !== page
+                  }">
+                    {{ page }}
+              </button>
+          </div>
+         <div> 
+          <button   v-if="data.next" @click="props.fetchCorse(data.next)" class="border border-black px-3  bigger-on-hover">
+              <svg class="rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="24" width="24">
+                  <g id="arrow-dash-left">
+                    <path id="Union" fill="#000000" d="M8.54297 5.54333c0.39054 -0.39029 1.02361 -0.39044 1.41406 0 0.39037 0.39046 0.39027 1.02356 0 1.41407l-4.04297 4.043H12c0.5521 0.0001 1 0.4478 1 1 -0.0002 0.552 -0.448 0.9998 -1 1H5.91406l4.04297 4.0429c0.39037 0.3905 0.39027 1.0236 0 1.4141 -0.39049 0.3905 -1.02353 0.3904 -1.41406 0l-5.75 -5.75c-0.39053 -0.3905 -0.39053 -1.0235 0 -1.4141zM17 11.0004c0.5521 0.0001 1 0.4478 1 1 -0.0002 0.552 -0.448 0.9998 -1 1h-1c-0.5522 0 -0.9998 -0.4479 -1 -1 0 -0.5523 0.4477 -1 1 -1zm4 0c0.5521 0.0001 1 0.4478 1 1 -0.0002 0.552 -0.448 0.9998 -1 1 -0.5522 0 -0.9998 -0.4479 -1 -1 0 -0.5523 0.4477 -1 1 -1" stroke-width="1"></path>
+                  </g>
+            </svg>
+        </button>
         </div>
-        <div>
-            <button 
-              v-for="page in data.total_pages" 
-              @click="props.fetchCorse(apiUrl + '?page=' + page)" 
-              class="border border-black px-3 " 
-              :class="{ 'bg-primary text-white': data.current_page === page }">
-                  {{ page }}
-            </button>
-        </div>
-      <div> 
-        <button  v-if="data.next" @click="props.fetchCorse(data.next)" class="border border-black px-3 rounded">
-            <img src="https://img.icons8.com/?size=30&id=z1KH1Tqun1RQ&format=png&color=000000" title="Pagina successiva">
-       </button>
-      </div>
        
       </div>
     </div>
@@ -124,6 +164,12 @@ watch([searchDesc, searchType], () => {
  }) 
 </script>
 
-<style scoped>
-/* Add any additional styles here if needed */
+<style>
+:root {
+  --zoom-1-2: 1.1;
+}
+.bigger-on-hover:hover{
+  transform: scale(var(--zoom-1-2));
+  transform-origin: center;
+}
 </style>

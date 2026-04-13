@@ -1,9 +1,9 @@
 <template>
   <aside
     :class="[
-      'fixed mt-16 flex flex-col lg:mt-0 top-0 px-5 left-0 bg-white dark:bg-gray-900 dark:border-gray-800 text-gray-900 h-screen transition-all duration-300 ease-in-out z-99999 border-r border-gray-200',
+      'fixed mt-16 flex flex-col lg:mt-0 top-0 px-1 left-0 bg-white dark:bg-gray-900 dark:border-gray-800 text-gray-900 h-screen transition-all duration-300 ease-in-out z-99999 border-r border-gray-200',
       {
-        'lg:w-[290px]': isExpanded || isMobileOpen || isHovered,
+        'lg:w-[180px]': isExpanded || isMobileOpen || isHovered,
         'lg:w-[90px]': !isExpanded && !isHovered,
         'translate-x-0 w-[290px]': isMobileOpen,
         '-translate-x-full': !isMobileOpen,
@@ -16,7 +16,7 @@
     <div
       :class="[
         'py-8 flex',
-        !isExpanded && !isHovered ? 'lg:justify-center' : 'justify-start',
+        !isExpanded && !isHovered ? 'justify-center' : 'justify-center',
       ]"
     >
       <router-link to="/">
@@ -38,10 +38,10 @@
         />
         <img
           v-else
-          src="/images/logo/logo-icon.svg"
+          src="/images/logo/logo.png"
           alt="Logo"
-          width="32"
-          height="32"
+          width="140"
+          height="30"
         />
       </router-link>
     </div>
@@ -60,12 +60,16 @@
               ]"
             >
               <template v-if="isExpanded || isHovered || isMobileOpen">
-                {{ menuGroup.title }}
+                <p style="padding-left:10px;">{{ menuGroup.title }}</p>
               </template>
               <HorizontalDots v-else />
             </h2>
-            <ul class="flex flex-col gap-4">
-              <li v-for="(item, index) in menuGroup.items" :key="item.name">
+            <ul 
+               :class="[
+                    'flex flex-col gap-4 pl-1',
+                    !isExpanded && !isHovered ? 'align-items-center' : 'align-items-start',
+                ]">
+              <li class="text-center" v-for="(item, index) in menuGroup.items" :key="item.name">
                 <button
                   v-if="item.subItems"
                   @click="toggleSubmenu(groupIndex, index)"
@@ -244,25 +248,17 @@ const menuGroups = [
       {
         icon: GridIcon,
         name: "Dashboard",
-        subItems: [{ name: "Ecommerce", path: "/", pro: false }],
+        path: "/", pro: false ,
       },
       {
         icon: CalenderIcon,
-        name: "Calendar",
-        path: "/calendar",
+        name: "Lista Corse",
+        path: "/corse-list",
       },
       {
         icon: UserCircleIcon,
         name: "User Profile",
         path: "/profile",
-      },
-
-      {
-        name: "Forms",
-        icon: ListIcon,
-        subItems: [
-          { name: "Form Elements", path: "/form-elements", pro: false },
-        ],
       },
       {
         name: "Tables",

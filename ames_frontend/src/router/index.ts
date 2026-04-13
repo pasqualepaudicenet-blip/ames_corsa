@@ -28,9 +28,9 @@ const router = createRouter({
                         },
                       },
                       {
-                        path: '/calendar',
-                        name: 'Calendar',
-                        component: () => import('../views/Others/Calendar.vue'),
+                        path: '/corsa-detail/:id',
+                        name: 'CorsaDetail',
+                        component: () => import('../views/Corsa/Detail.vue'),
                         meta: {
                           title: 'Calendar',
                         },
