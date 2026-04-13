@@ -64,8 +64,17 @@
       <div data-v-9b3943d3="" class="flex items-center justify-between">
         <div>
            <button v-if="data.previous" @click="props.fetchCorse(data.previous)" class="border border-black px-3 rounded" title="Pagina precedente">
-          <img  src="https://img.icons8.com/?size=30&id=WWzSFZsWqPFD&format=png&color=000000" alt="">
-       </button>
+              <img  src="https://img.icons8.com/?size=30&id=WWzSFZsWqPFD&format=png&color=000000" alt="">
+            </button>
+        </div>
+        <div>
+            <button 
+              v-for="page in data.total_pages" 
+              @click="props.fetchCorse(apiUrl + '?page=' + page)" 
+              class="border border-black px-3 " 
+              :class="{ 'bg-primary text-white': data.current_page === page }">
+                  {{ page }}
+            </button>
         </div>
       <div> 
         <button  v-if="data.next" @click="props.fetchCorse(data.next)" class="border border-black px-3 rounded">
