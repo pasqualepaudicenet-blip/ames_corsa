@@ -10,6 +10,7 @@ from django.views import View
 from rest_framework.pagination import PageNumberPagination
 from django.db.models import Q
 from rest_framework import viewsets, permissions
+from .pagination import StandardResultsSetPagination
 
 class DieciProdottiPagination(PageNumberPagination):
     page_size = 10
@@ -18,7 +19,7 @@ class DieciProdottiPagination(PageNumberPagination):
 class CorsaViewSet(viewsets.ModelViewSet):
     queryset = Corsa.objects.all()
     serializer_class = CorsaSerializer
-    pagination_class = DieciProdottiPagination
+    pagination_class = StandardResultsSetPagination
     #permission_classes = [permissions.IsAuthenticated]
 
     #filter_backends = [DjangoFilterBackend]
