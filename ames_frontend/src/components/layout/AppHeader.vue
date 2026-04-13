@@ -1,6 +1,7 @@
 <template>
-  <header
-    class="sticky top-0 flex w-full bg-white border-gray-200 z-99999 dark:border-gray-800 dark:bg-gray-900 lg:border-b"
+  <div>
+     <header
+    class="sticky top-0 flex  bg-white border-gray-200  dark:border-gray-800 dark:bg-gray-900 lg:border-b position-fixed " style="z-index: 1; width: calc(100% - 100px );"
   >
     <div class="flex  justify-between grow lg:flex-row lg:px-6 bg-white"  >
       <div
@@ -82,6 +83,8 @@
       </div>
     </div>
   </header>
+  </div>
+ 
 </template>
 
 <script setup lang="ts">
