@@ -14,7 +14,7 @@
   <div class="w-100 overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03] shadow"  >
     <div data-v-9b3943d3="" class="flex items-center justify-around p-3">
           <div>
-            <button v-if="data.previous" @click="props.fetchCorse(data.previous)" class="border border-black px-3  bigger-on-hover" title="Pagina precedente">
+            <button v-if="data.previous" @click="props.fetchCorse(data.previous)" class="border border-grey px-3  bigger-on-hover" title="Pagina precedente">
                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="24" width="24">
                   <g id="arrow-dash-left">
                     <path id="Union" fill="#000000" d="M8.54297 5.54333c0.39054 -0.39029 1.02361 -0.39044 1.41406 0 0.39037 0.39046 0.39027 1.02356 0 1.41407l-4.04297 4.043H12c0.5521 0.0001 1 0.4478 1 1 -0.0002 0.552 -0.448 0.9998 -1 1H5.91406l4.04297 4.0429c0.39037 0.3905 0.39027 1.0236 0 1.4141 -0.39049 0.3905 -1.02353 0.3904 -1.41406 0l-5.75 -5.75c-0.39053 -0.3905 -0.39053 -1.0235 0 -1.4141zM17 11.0004c0.5521 0.0001 1 0.4478 1 1 -0.0002 0.552 -0.448 0.9998 -1 1h-1c-0.5522 0 -0.9998 -0.4479 -1 -1 0 -0.5523 0.4477 -1 1 -1zm4 0c0.5521 0.0001 1 0.4478 1 1 -0.0002 0.552 -0.448 0.9998 -1 1 -0.5522 0 -0.9998 -0.4479 -1 -1 0 -0.5523 0.4477 -1 1 -1" stroke-width="1"></path>
@@ -26,7 +26,7 @@
               <button 
                 v-for="page in data.total_pages" 
                 @click="props.fetchCorse(apiUrl + '?page=' + page)" 
-                class="border border-black px-3 bigger-on-hover " 
+                class="border border-grey px-3 bigger-on-hover " 
                 :class="{ 
                   'bg-primary text-white': data.current_page === page,
                   'bg-white': data.current_page !== page
@@ -35,7 +35,7 @@
               </button>
           </div>
         <div> 
-          <button   v-if="data.next" @click="props.fetchCorse(data.next)" class="border border-black px-3  bigger-on-hover">
+          <button   v-if="data.next" @click="props.fetchCorse(data.next)" class="border border-grey px-3  bigger-on-hover">
               <svg class="rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="24" width="24">
                   <g id="arrow-dash-left">
                     <path id="Union" fill="#000000" d="M8.54297 5.54333c0.39054 -0.39029 1.02361 -0.39044 1.41406 0 0.39037 0.39046 0.39027 1.02356 0 1.41407l-4.04297 4.043H12c0.5521 0.0001 1 0.4478 1 1 -0.0002 0.552 -0.448 0.9998 -1 1H5.91406l4.04297 4.0429c0.39037 0.3905 0.39027 1.0236 0 1.4141 -0.39049 0.3905 -1.02353 0.3904 -1.41406 0l-5.75 -5.75c-0.39053 -0.3905 -0.39053 -1.0235 0 -1.4141zM17 11.0004c0.5521 0.0001 1 0.4478 1 1 -0.0002 0.552 -0.448 0.9998 -1 1h-1c-0.5522 0 -0.9998 -0.4479 -1 -1 0 -0.5523 0.4477 -1 1 -1zm4 0c0.5521 0.0001 1 0.4478 1 1 -0.0002 0.552 -0.448 0.9998 -1 1 -0.5522 0 -0.9998 -0.4479 -1 -1 0 -0.5523 0.4477 -1 1 -1" stroke-width="1"></path>
@@ -92,7 +92,7 @@
     <div data-v-9b3943d3="" class="px-6 py-4 border-t border-gray-200 dark:border-white/[0.05]">
       <div data-v-9b3943d3="" class="flex items-center justify-around">
           <div>
-            <button v-if="data.previous" @click="props.fetchCorse(data.previous)" class="border border-black px-3  bigger-on-hover" title="Pagina precedente">
+            <button v-if="data.previous" @click="props.fetchCorse(data.previous)" class="border border-grey px-3  bigger-on-hover" title="Pagina precedente">
                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="24" width="24">
                   <g id="arrow-dash-left">
                     <path id="Union" fill="#000000" d="M8.54297 5.54333c0.39054 -0.39029 1.02361 -0.39044 1.41406 0 0.39037 0.39046 0.39027 1.02356 0 1.41407l-4.04297 4.043H12c0.5521 0.0001 1 0.4478 1 1 -0.0002 0.552 -0.448 0.9998 -1 1H5.91406l4.04297 4.0429c0.39037 0.3905 0.39027 1.0236 0 1.4141 -0.39049 0.3905 -1.02353 0.3904 -1.41406 0l-5.75 -5.75c-0.39053 -0.3905 -0.39053 -1.0235 0 -1.4141zM17 11.0004c0.5521 0.0001 1 0.4478 1 1 -0.0002 0.552 -0.448 0.9998 -1 1h-1c-0.5522 0 -0.9998 -0.4479 -1 -1 0 -0.5523 0.4477 -1 1 -1zm4 0c0.5521 0.0001 1 0.4478 1 1 -0.0002 0.552 -0.448 0.9998 -1 1 -0.5522 0 -0.9998 -0.4479 -1 -1 0 -0.5523 0.4477 -1 1 -1" stroke-width="1"></path>
@@ -104,7 +104,7 @@
               <button 
                 v-for="page in data.total_pages" 
                 @click="props.fetchCorse(apiUrl + '?page=' + page)" 
-                class="border border-black px-3 bigger-on-hover " 
+                class="border border-grey px-3 bigger-on-hover " 
                 :class="{ 
                   'bg-primary text-white': data.current_page === page,
                   'bg-white': data.current_page !== page
@@ -113,7 +113,7 @@
               </button>
           </div>
          <div> 
-          <button   v-if="data.next" @click="props.fetchCorse(data.next)" class="border border-black px-3  bigger-on-hover">
+          <button   v-if="data.next" @click="props.fetchCorse(data.next)" class="border border-grey px-3  bigger-on-hover">
               <svg class="rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="24" width="24">
                   <g id="arrow-dash-left">
                     <path id="Union" fill="#000000" d="M8.54297 5.54333c0.39054 -0.39029 1.02361 -0.39044 1.41406 0 0.39037 0.39046 0.39027 1.02356 0 1.41407l-4.04297 4.043H12c0.5521 0.0001 1 0.4478 1 1 -0.0002 0.552 -0.448 0.9998 -1 1H5.91406l4.04297 4.0429c0.39037 0.3905 0.39027 1.0236 0 1.4141 -0.39049 0.3905 -1.02353 0.3904 -1.41406 0l-5.75 -5.75c-0.39053 -0.3905 -0.39053 -1.0235 0 -1.4141zM17 11.0004c0.5521 0.0001 1 0.4478 1 1 -0.0002 0.552 -0.448 0.9998 -1 1h-1c-0.5522 0 -0.9998 -0.4479 -1 -1 0 -0.5523 0.4477 -1 1 -1zm4 0c0.5521 0.0001 1 0.4478 1 1 -0.0002 0.552 -0.448 0.9998 -1 1 -0.5522 0 -0.9998 -0.4479 -1 -1 0 -0.5523 0.4477 -1 1 -1" stroke-width="1"></path>
