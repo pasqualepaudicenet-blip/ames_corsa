@@ -13,7 +13,7 @@
   </div>
   <div class="w-100 overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03] shadow"  >
     <div data-v-9b3943d3="" class="flex items-center justify-around p-3">
-          <div>
+          <div  class="col-4 d-flex justify-content-start">
             <button v-if="data.previous" @click="props.fetchCorse(data.previous)" class="border border-grey px-3  bigger-on-hover" title="Pagina precedente">
                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="24" width="24">
                   <g id="arrow-dash-left">
@@ -22,7 +22,7 @@
               </svg>
               </button>
           </div>
-          <div>
+          <div  class="col-4 d-flex justify-content-center">
               <button 
                 v-for="page in data.total_pages" 
                 @click="props.fetchCorse(apiUrl + '?page=' + page)" 
@@ -34,7 +34,7 @@
                     {{ page }}
               </button>
           </div>
-        <div> 
+        <div  class="col-4 d-flex justify-content-end"> 
           <button   v-if="data.next" @click="props.fetchCorse(data.next)" class="border border-grey px-3  bigger-on-hover">
               <svg class="rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="24" width="24">
                   <g id="arrow-dash-left">
@@ -91,7 +91,7 @@
     </div>
     <div data-v-9b3943d3="" class="px-6 py-4 border-t border-gray-200 dark:border-white/[0.05]">
       <div data-v-9b3943d3="" class="flex items-center justify-around">
-          <div>
+          <div class="col-4 d-flex justify-content-start">
             <button v-if="data.previous" @click="props.fetchCorse(data.previous)" class="border border-grey px-3  bigger-on-hover" title="Pagina precedente">
                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="24" width="24">
                   <g id="arrow-dash-left">
@@ -100,7 +100,7 @@
               </svg>
               </button>
           </div>
-          <div>
+          <div class="col-4 d-flex justify-content-center">
               <button 
                 v-for="page in data.total_pages" 
                 @click="props.fetchCorse(apiUrl + '?page=' + page)" 
@@ -112,7 +112,7 @@
                     {{ page }}
               </button>
           </div>
-         <div> 
+         <div class="col-4 d-flex justify-content-end"> 
           <button   v-if="data.next" @click="props.fetchCorse(data.next)" class="border border-grey px-3  bigger-on-hover">
               <svg class="rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="24" width="24">
                   <g id="arrow-dash-left">
