@@ -69,25 +69,15 @@
             <td class=" py-4 sm:px-2 text-center" >
               {{ corsa.date }}
             </td>
-            <td class=" text-center sm:px-2 "
-                :class=" isHovered ? 'overflow-auto' : 'overflow-hidden'"
-                  @mouseenter="isHovered = true"   
-                  @mouseleave="isHovered = false"             
-                >
+            <td class=" text-center sm:px-2 cell-overable">
                 {{ corsa.description }}
               
             </td>
-            <td class=" py-4 text-center sm:px-2 "
-                :class=" isHovered1 ? 'overflow-auto' : 'overflow-hidden'"
-                  @mouseenter="isHovered1 = true"   
-                  @mouseleave="isHovered1 = false"             
+            <td class=" py-4 text-center sm:px-2 cell-overable"             
                 >
              {{ corsa.type }}
             </td>
-            <td class=" text-center py-4 sm:px-2"
-                 :class=" isHovered2 ? 'overflow-auto' : 'overflow-hidden'"
-                  @mouseenter="isHovered2= true"   
-                  @mouseleave="isHovered2 = false"             
+            <td class=" text-center py-4 sm:px-2 cell-overable"             
                 
             >
               {{ corsa.derivation_path }}
@@ -147,10 +137,6 @@
 <script setup>
 import { ref, watch } from 'vue'
 
-const isHovered = ref(false)
-const isHovered1 = ref(false)
-const isHovered2 = ref(false)
-
 const props = defineProps({
   data: Object,
   fetchCorse: Function,
@@ -191,12 +177,16 @@ watch([searchDesc, searchType], () => {
   transform: scale(var(--zoom-1-2));
   transform-origin: center;
 }
-
-
 .table-fixed {
   table-layout: fixed;
   width: 100%;
 }
 
+.cell-overable{
+  overflow: hidden;
+}
 
+.cell-overable:hover{
+  overflow: auto;
+}
 </style>
