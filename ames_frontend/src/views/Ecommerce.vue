@@ -45,3 +45,10 @@ export default {
   name: 'Ecommerce',
 }
 </script>
+
+<style>
+.cards-hover:hover{
+  transform: scale(1.05);
+  cursor: pointer;
+}
+</style>

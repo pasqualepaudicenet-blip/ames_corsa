@@ -46,21 +46,21 @@
        
       </div>
     <div class=" overflow-x-auto custom-scrollbar" >
-      <table class="w-100"  >
+      <table class=" table-fixed"  >
         <thead class="">
-            <th scope="col-1" class="px-5 py-3 text-left w-3/11 text-center sm:px-6">
+            <th  class=" px-5 py-3 text-left w-3/11 text-center sm:px-6">
               <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400 text-center">Data</p>
             </th>
-            <th scope="col-1" class="px-2 py-3 text-left w-2/11 text-center sm:px-6">
+            <th  class=" px-2 py-3 text-left w-2/11 text-center sm:px-6">
               <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">Descrizione</p>
             </th>
-            <th scope="col" class="px-2 py-3 text-left text-center w-2/11 sm:px-6">
+            <th class=" px-2 py-3 text-left text-center w-2/11 sm:px-6 overlow-auto">
               <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">Tipo</p>
             </th>
-            <th scope="col" class="px-2 py-3 text-left text-center w-2/11 sm:px-6">
-              <p scope="col" class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">Path di derivazione</p>
+            <th class=" px-2 py-3 text-left text-center w-2/11 sm:px-6 overlow-auto">
+              <p  class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">Path di derivazione</p>
             </th>
-            <th scope="col" class="px- py-3 text-left text-center w-2/11 sm:px-6">
+            <th  class=" px- py-3 text-left text-center w-2/11 sm:px-6">
               <p class="text-center  font-medium text-gray-500 text-theme-xs dark:text-gray-400">Azioni</p>
             </th>
         </thead>
@@ -69,14 +69,28 @@
             <td class=" py-4 sm:px-2 text-center" >
               {{ corsa.date }}
             </td>
-            <td class=" py-4 text-center sm:px-2">
-              <p class="text-gray-500  text-theme-sm dark:text-gray-400">{{ corsa.description }}</p>
+            <td class=" text-center sm:px-2 "
+                :class=" isHovered ? 'overflow-auto' : 'overflow-hidden'"
+                  @mouseenter="isHovered = true"   
+                  @mouseleave="isHovered = false"             
+                >
+                {{ corsa.description }}
+              
             </td>
-            <td class=" py-4 text-center sm:px-2">
-              <p class="text-gray-500 r text-theme-sm dark:text-gray-400">{{ corsa.type }}</p>
+            <td class=" py-4 text-center sm:px-2 "
+                :class=" isHovered1 ? 'overflow-auto' : 'overflow-hidden'"
+                  @mouseenter="isHovered1 = true"   
+                  @mouseleave="isHovered1 = false"             
+                >
+             {{ corsa.type }}
             </td>
-            <td class=" text-center py-4 sm:px-2">
-              <p class="text-gray-500  text-theme-sm dark:text-gray-400">{{ corsa.derivation_path }}</p>
+            <td class=" text-center py-4 sm:px-2"
+                 :class=" isHovered2 ? 'overflow-auto' : 'overflow-hidden'"
+                  @mouseenter="isHovered2= true"   
+                  @mouseleave="isHovered2 = false"             
+                
+            >
+              {{ corsa.derivation_path }}
             </td>
             <td class=" py-4 sm:px-6 d-flex justify-content-center" >
               <router-link class="btn bg-primary bigger-on-hover" title="Dettagli" :to="{ name: 'CorsaDetail', params: { id: corsa.pk} }">
@@ -132,6 +146,11 @@
 </template>
 <script setup>
 import { ref, watch } from 'vue'
+
+const isHovered = ref(false)
+const isHovered1 = ref(false)
+const isHovered2 = ref(false)
+
 const props = defineProps({
   data: Object,
   fetchCorse: Function,
@@ -172,4 +191,12 @@ watch([searchDesc, searchType], () => {
   transform: scale(var(--zoom-1-2));
   transform-origin: center;
 }
+
+
+.table-fixed {
+  table-layout: fixed;
+  width: 100%;
+}
+
+
 </style>
