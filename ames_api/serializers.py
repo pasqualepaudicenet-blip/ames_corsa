@@ -13,8 +13,7 @@ class SampleCorsaSerializer(serializers.ModelSerializer):
         model = Sample
         fields = ['sample_id', 'sample_name']
 
-class CorsaSerializer(serializers.ModelSerializer):
-    samples = SampleCorsaSerializer(many=True, read_only=True)
+class CorsaListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Corsa
@@ -24,8 +23,22 @@ class CorsaSerializer(serializers.ModelSerializer):
             'description', 
             'type', 
             'derivation_path',
-            'samples'
                 ]
+        
+class CorsaDetailSerializer(serializers.ModelSerializer):
+    samples = SampleCorsaSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Corsa
+        fields = [
+            'pk',
+            'date',
+            'description',
+            'type',
+            'derivation_path',
+            'samples'
+        ]
+
 class CorsaSampleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Corsa

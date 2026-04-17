@@ -3,7 +3,7 @@ import re
 import csv
 import xml.etree.ElementTree as ET
 from ames_api.models import Corsa, Sample
-from ames_api.serializers import CorsaSerializer
+from ames_api.serializers import CorsaDetailSerializer, CorsaListSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 from django.http import JsonResponse, HttpResponse
 from django.views import View
@@ -11,6 +11,9 @@ from rest_framework.pagination import PageNumberPagination
 from django.db.models import Q
 from rest_framework import viewsets, permissions
 from .pagination import StandardResultsSetPagination
+from django.core.cache import cache
+from rest_framework.response import Response
+import hashlib
 
 class DieciProdottiPagination(PageNumberPagination):
     page_size = 10
@@ -18,13 +21,19 @@ class DieciProdottiPagination(PageNumberPagination):
 
 class CorsaViewSet(viewsets.ModelViewSet):
     queryset = Corsa.objects.all()
-    serializer_class = CorsaSerializer
     pagination_class = StandardResultsSetPagination
     #permission_classes = [permissions.IsAuthenticated]
 
+    
     #filter_backends = [DjangoFilterBackend]
     #filterset_fields = ['description', 'type']
-
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return CorsaListSerializer
+        if self.action == 'retrieve':
+            return CorsaDetailSerializer
+        return CorsaListSerializer
+    
     def get_queryset(self):
         queryset = super().get_queryset()
         description = self.request.query_params.get('description', None)
@@ -39,6 +48,30 @@ class CorsaViewSet(viewsets.ModelViewSet):
         if filters:
             queryset = queryset.filter(filters)
         return queryset 
+    
+    def list(self, request, *args, **kwargs):
+       
+        params_string = str(sorted(request.query_params.items()))
+        cache_key = f"corsa_list_{hashlib.md5(params_string.encode()).hexdigest()}"
+
+        response = cache.get(cache_key)
+        if response:
+            return Response(response)
+
+        # normale comportamento DRF
+        queryset = self.filter_queryset(self.get_queryset())
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            data = self.get_paginated_response(serializer.data).data
+        else:
+            serializer = self.get_serializer(queryset, many=True)
+            data = serializer.data
+
+        # salva in cache
+        cache.set(cache_key, data, timeout=60 * 5) 
+        return Response(data)
 
 class CorsaSampleCreateView(View):
     #path = "/mnt/nas/NovaSeq"
