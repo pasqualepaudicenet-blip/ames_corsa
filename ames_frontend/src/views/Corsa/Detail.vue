@@ -1,6 +1,6 @@
 <template>
     <admin-layout>
-        <div class="container-fluid d-flex flex-column align-items-center border border-primary rounded shadow ">
+        <div class="container-fluid d-flex flex-column align-items-center border  rounded shadow detail-card">
             <h1 class="mt-3 mb-4">Dettaglio corsa</h1>
             
             <ul v-if="corsa">
@@ -20,16 +20,16 @@
                     <div>
                         <h2 ">Sample collegati</h2>
                     </div>
-                    <div>
-                        <table class="vw-75 border border-gray-200 bg-white 
-                            dark:border-gray-800 dark:bg-white/[0.03]  rounded-x1">
-                            <thead>
-                                <th class="px-5 py-3 text-center" >ID</th>
-                                <th class="px-5 py-3 text-center">Nome</th>
+                    <div class="w-100">
+                        <table class="vw-75 border border-gray-200 bg-white w-100 table-striped
+                            dark:border-gray-800 dark:bg-white/[0.03] table-responsive table-bordered rounded-x1">
+                            <thead >
+                                <th class="px-5 py-3 text-center w-50" >ID</th>
+                                <th class="px-5 py-3 text-center w-50">Nome</th>
                             </thead>
-                            <tbody class="divide-y divide-gray-200">
+                            <tbody class="divide-y  divide-gray-200">
                                 <tr v-for="sample in corsa.samples">
-                                    <td class="py-4 sm:px-6  text-center">{{ sample.sample_id }}</td>
+                                    <td class="py-4 sm:px-6  text-center ">{{ sample.sample_id }}</td>
                                     <td class="py-4 sm:px-6  text-center">{{ sample.sample_name }}</td>
                                 </tr>
                             </tbody>
@@ -70,3 +70,11 @@ onMounted(() => {
 })
 
 </script>
+ <style>
+ .detail-card:hover{overflow: auto;}
+.detail-card{
+    height: 100%;
+    overflow: hidden;
+}
+
+</style>
