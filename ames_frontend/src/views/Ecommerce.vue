@@ -1,9 +1,8 @@
 <template>
   <admin-layout>
-    <div class="grid grid-cols-12 gap-4 md:gap-6">
-      <div class="col-span-12 space-y-6 xl:col-span-7">
-        <ecommerce-metrics />
-        <monthly-target />
+    <div class="col-12  d-flex justify-content-center">
+      <div class=" space-y-6 xl:col-span-7  ">
+        <ecommerce-metrics  />
       </div>
       <div class="col-span-12 xl:col-span-5">
         <monthly-sale />
@@ -36,11 +35,11 @@ export default {
   components: {
     AdminLayout,
     EcommerceMetrics,
-    MonthlyTarget,
-    MonthlySale,
-    CustomerDemographic,
-    StatisticsChart,
-    RecentOrders,
+    //MonthlyTarget,
+    //MonthlySale,
+    //CustomerDemographic,
+    //StatisticsChart,
+    //RecentOrders,
   },
   name: 'Ecommerce',
 }
