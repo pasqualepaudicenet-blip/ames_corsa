@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
+import { verifyToken } from "@/utils/auth";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   scrollBehavior(to, from, savedPosition) {
@@ -17,6 +18,7 @@ const router = createRouter({
                         component: () => import('@/views/Ecommerce.vue'),
                         meta: {
                           title: 'eCommerce Dashboard',
+                          requiresAuth: true
                         },
                       },
                       {
@@ -143,6 +145,7 @@ const router = createRouter({
                         component: () => import('../views/Auth/Signin.vue'),
                         meta: {
                           title: 'Signin',
+                          meta: { public: true }
                         },
                       },
                       {
@@ -158,10 +161,29 @@ const router = createRouter({
       
     ]
 })
+router.beforeEach(async (to, from, next) => {
+  const token = localStorage.getItem("access");
+  if (to.meta.public) return next();
+  if (to.meta.requiresAuth) {
+    if (!token) {
+      return next("/signin");
+    }
+
+    const valid = await verifyToken(token);
+
+    if (!valid) {
+      localStorage.removeItem("access");
+      localStorage.removeItem("refresh");
+
+      return next("/signin");
+    }
+  }
+
+  next();
+});
+
+
 
 export default router
 
-router.beforeEach((to, from, next) => {
-  document.title = `Vue.js ${to.meta.title} | TailAdmin - Vue.js Tailwind CSS Dashboard Template`
-  next()
-})
+

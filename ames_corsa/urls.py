@@ -18,7 +18,10 @@ from django.contrib import admin
 from django.urls import path, include
 from ames_api import urls as ames_corsa_urls
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(ames_corsa_urls)),
+   
+    
 ]

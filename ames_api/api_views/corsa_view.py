@@ -9,7 +9,7 @@ from django.http import JsonResponse, HttpResponse
 from django.views import View
 from rest_framework.pagination import PageNumberPagination
 from django.db.models import Q
-from rest_framework import viewsets, permissions
+from rest_framework import request, viewsets, permissions
 from .pagination import StandardResultsSetPagination
 from django.core.cache import cache
 from rest_framework.response import Response
@@ -20,9 +20,10 @@ class DieciProdottiPagination(PageNumberPagination):
 
 
 class CorsaViewSet(viewsets.ModelViewSet):
+    print("VIEWSET CARICATO") 
     queryset = Corsa.objects.all()
     pagination_class = StandardResultsSetPagination
-    #permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     
     #filter_backends = [DjangoFilterBackend]
@@ -50,7 +51,8 @@ class CorsaViewSet(viewsets.ModelViewSet):
         return queryset 
     
     def list(self, request, *args, **kwargs):
-       
+        
+
         params_string = str(sorted(request.query_params.items()))
         cache_key = f"corsa_list_{hashlib.md5(params_string.encode()).hexdigest()}"
 

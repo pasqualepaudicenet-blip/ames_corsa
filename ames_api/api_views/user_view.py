@@ -8,7 +8,7 @@ from rest_framework import generics
 class UserViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
-
+    
 
 
     def get_permissions(self):
