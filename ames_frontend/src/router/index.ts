@@ -174,8 +174,29 @@ router.beforeEach(async (to, from, next) => {
     if (!valid) {
       localStorage.removeItem("access");
       localStorage.removeItem("refresh");
-
       return next("/signin");
+    }
+
+    // Refresh token solo se l'access è ancora valido
+    try {
+      const refreshToken = localStorage.getItem("refresh");
+      if (refreshToken) {
+        const response = await fetch("http://127.0.0.1:8000/api/token/refresh/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ refresh: refreshToken }),
+        });
+        if (response.ok) {
+          const data = await response.json();
+          localStorage.setItem("access", data.access);
+        } else {
+          console.error("Errore refresh token");
+        }
+      }
+    } catch (error) {
+      console.error("Errore refresh token:", error);
     }
   }
 
