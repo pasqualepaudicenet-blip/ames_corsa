@@ -202,18 +202,15 @@ const password = ref('')
 const showPassword = ref(false)
 const keepLoggedIn = ref(false)
 const router = useRouter()
-
 const togglePasswordVisibility = () => {
   showPassword.value = !showPassword.value
 }
-
 const handleSubmit = async () => {
   try {
     const response = await axios.post("http://localhost:8000/api/token/", {
       username: username.value,
       password: password.value
     });
-
     // salva token
     localStorage.setItem("access", response.data.access);
     localStorage.setItem("refresh", response.data.refresh);
@@ -224,8 +221,5 @@ const handleSubmit = async () => {
   } catch (error) {
     console.error("Errore login", error.response?.data);
   }
-
-
-
 }
 </script>

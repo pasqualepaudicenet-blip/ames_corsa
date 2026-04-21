@@ -25,7 +25,7 @@
           <div  class="col-4 d-flex justify-content-center">
               <button 
                 v-for="page in data.total_pages" 
-                @click="props.fetchCorse(apiUrl + '?page=' + page)" 
+                @click="props.fetchCorse(get_url(page))" 
                 class="border border-grey px-3 bigger-on-hover " 
                 :class="{ 
                   'bg-primary text-white': data.current_page === page,
@@ -107,7 +107,7 @@
           <div class="col-4 d-flex justify-content-center">
               <button 
                 v-for="page in data.total_pages" 
-                @click="props.fetchCorse(apiUrl + '?page=' + page)" 
+                @click="props.fetchCorse(get_url(page))" 
                 class="border border-grey px-3 bigger-on-hover " 
                 :class="{ 
                   'bg-primary text-white': data.current_page === page,
@@ -115,6 +115,7 @@
                   }">
                     {{ page }}
               </button>
+              
           </div>
          <div class="col-4 d-flex justify-content-end"> 
           <button   v-if="data.next" @click="props.fetchCorse(data.next)" class="border border-grey px-3  bigger-on-hover">
@@ -136,7 +137,6 @@
 </template>
 <script setup>
 import { ref, watch } from 'vue'
-
 const props = defineProps({
   data: Object,
   fetchCorse: Function,
@@ -145,10 +145,14 @@ const props = defineProps({
 
 const searchDesc = ref('')
 const searchType = ref('')
-
+const current_url = ref('')
 let timeout
+
+current_url.value = props.apiUrl
+
 watch([searchDesc, searchType], () => {
   clearTimeout(timeout)
+  alert(current_url.value)
   
   timeout = setTimeout(() => {
     // Chiamata live solo se la lunghezza >=3 o campo vuoto (per resettare)
@@ -163,10 +167,27 @@ watch([searchDesc, searchType], () => {
       } else if (params.toString()) {
         url = url + '?' + params.toString()
       }
+      current_url.value = url
+      console.log('URL: ', url)
       props.fetchCorse(url)
     }
   }, 300)
  }) 
+
+
+ function get_url(page){
+   if (current_url.value.includes('?')) {
+        current_url.value = current_url.value.split('?')[0] + '?' + current_url.value.split('?')[1]
+        if(current_url.value.includes('page=')) {
+          current_url.value = current_url.value.split('?')[0] + '?' + current_url.value.split('?')[1].split('&').filter(param => !param.startsWith('page=')).join('&')
+        }
+        current_url.value = current_url.value + '&' + 'page=' + page
+    } else {
+      current_url.value = current_url.value + '?' + 'page=' + page
+    }
+    alert(current_url.value)
+    return current_url.value
+    }
 </script>
 
 <style>

@@ -48,6 +48,7 @@ import { ref, onMounted, watch  } from 'vue'
 import axios from 'axios'
 import { useRoute } from 'vue-router'
 import { isConstructorDeclaration } from 'typescript'
+import api from "@/api/axios";
 
 const route = useRoute()
 
@@ -56,10 +57,10 @@ const errore = ref(null)
 
 const getCorsa = async () => {
     const id = route.params.id
-    const apiUrl = `http://127.0.0.1:8000/api/corsas/${id}`
+    const apiUrl = `api/corsas/${id}`
 
     try {
-      const response = await axios.get(apiUrl)
+      const response = await api.get(apiUrl)
       corsa.value = response.data
     } catch (err) {
       errore.value = "Errore nel caricamento dati: " + err.message
