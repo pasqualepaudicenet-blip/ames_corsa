@@ -48,7 +48,8 @@
     <div class=" overflow-x-auto custom-scrollbar" >
       <table class=" table-fixed"  >
         <thead class="">
-            <th  class=" px-5 py-3 text-left w-3/11 text-center sm:px-6">
+          <tr>
+             <th  class=" px-5 py-3 text-left w-3/11 text-center sm:px-6">
               <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400 text-center">Data</p>
             </th>
             <th  class=" px-2 py-3 text-left w-2/11 text-center sm:px-6">
@@ -63,6 +64,8 @@
             <th  class=" px- py-3 text-left text-center w-2/11 sm:px-6">
               <p class="text-center  font-medium text-gray-500 text-theme-xs dark:text-gray-400">Azioni</p>
             </th>
+          </tr>
+           
         </thead>
         <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
           <tr v-for="corsa in data.results" :key="corsa.id" class="border-t border-gray-100 dark:border-gray-800">
@@ -140,7 +143,7 @@ import { ref, watch } from 'vue'
 const props = defineProps({
   data: Object,
   fetchCorse: Function,
-  apiUrl: Text,
+  apiUrl: String,
 });
 
 const searchDesc = ref('')
@@ -168,7 +171,6 @@ watch([searchDesc, searchType], () => {
         url = url + '?' + params.toString()
       }
       current_url.value = url
-      console.log('URL: ', url)
       props.fetchCorse(url)
     }
   }, 300)

@@ -22,7 +22,6 @@ const apiUrl = 'api/corsas/'
 const fetchCorse = async (url = apiUrl) => {
   try {
     const response = await api.get(url);
-    console.log(response.data)
     corse.value = response.data;
   } catch (err) {
     console.error(err);
