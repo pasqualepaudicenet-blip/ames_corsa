@@ -155,7 +155,6 @@ current_url.value = props.apiUrl
 
 watch([searchDesc, searchType], () => {
   clearTimeout(timeout)
-  alert(current_url.value)
   
   timeout = setTimeout(() => {
     // Chiamata live solo se la lunghezza >=3 o campo vuoto (per resettare)
@@ -187,7 +186,6 @@ watch([searchDesc, searchType], () => {
     } else {
       current_url.value = current_url.value + '?' + 'page=' + page
     }
-    alert(current_url.value)
     return current_url.value
     }
 </script>
