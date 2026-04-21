@@ -23,16 +23,20 @@
               </button>
           </div>
           <div  class="col-4 d-flex justify-content-center">
-              <button 
-                v-for="page in data.total_pages" 
-                @click="props.fetchCorse(get_url(page))" 
-                class="border border-grey px-3 bigger-on-hover " 
-                :class="{ 
-                  'bg-primary text-white': data.current_page === page,
-                  'bg-white': data.current_page !== page
-                  }">
-                    {{ page }}
-              </button>
+              <template v-for="(page, index) in getPaginationPages()" :key="index">
+                <button v-if="page === 'ellipsis'" class="border border-grey px-3 cursor-default" disabled>
+                  ...
+                </button>
+                <button v-else
+                  @click="props.fetchCorse(get_url(page))" 
+                  class="border border-grey px-3 bigger-on-hover " 
+                  :class="{ 
+                    'bg-primary text-white': data.current_page === page,
+                    'bg-white': data.current_page !== page
+                    }">
+                      {{ page }}
+                </button>
+              </template>
           </div>
         <div  class="col-4 d-flex justify-content-end"> 
           <button   v-if="data.next" @click="props.fetchCorse(data.next)" class="border border-grey px-3  bigger-on-hover">
@@ -108,17 +112,20 @@
               </button>
           </div>
           <div class="col-4 d-flex justify-content-center">
-              <button 
-                v-for="page in data.total_pages" 
-                @click="props.fetchCorse(get_url(page))" 
-                class="border border-grey px-3 bigger-on-hover " 
-                :class="{ 
-                  'bg-primary text-white': data.current_page === page,
-                  'bg-white': data.current_page !== page
-                  }">
-                    {{ page }}
-              </button>
-              
+              <template v-for="(page, index) in getPaginationPages()" :key="index">
+                <button v-if="page === 'ellipsis'" class="border border-grey px-3 cursor-default" disabled>
+                  ...
+                </button>
+                <button v-else
+                  @click="props.fetchCorse(get_url(page))" 
+                  class="border border-grey px-3 bigger-on-hover " 
+                  :class="{ 
+                    'bg-primary text-white': data.current_page === page,
+                    'bg-white': data.current_page !== page
+                    }">
+                      {{ page }}
+                </button>
+              </template>
           </div>
          <div class="col-4 d-flex justify-content-end"> 
           <button   v-if="data.next" @click="props.fetchCorse(data.next)" class="border border-grey px-3  bigger-on-hover">
@@ -187,7 +194,46 @@ watch([searchDesc, searchType], () => {
       current_url.value = current_url.value + '?' + 'page=' + page
     }
     return current_url.value
+  }
+
+  function getPaginationPages() {
+    const totalPages = props.data.total_pages
+    const currentPage = props.data.current_page
+    const pagesToShow = 5 // numeri di pagina da mostrare intorno a quella corrente
+    const pages = []
+    
+    if (totalPages <= 4) {
+      // Se le pagine sono poche, mostra tutte
+      return Array.from({ length: totalPages }, (_, i) => i + 1)
     }
+    
+    // Sempre mostra pagina 1
+    pages.push(1)
+    
+    // Calcola l'inizio e la fine della finestra attorno alla pagina corrente
+    let start = Math.max(2, currentPage - 2)
+    let end = Math.min(totalPages - 1, currentPage + 2)
+    
+    // Aggiungi puntini se c'è un gap dopo la pagina 1
+    if (start > 2) {
+      pages.push('ellipsis')
+    }
+    
+    // Aggiungi le pagine intorno a quella corrente
+    for (let i = start; i <= end; i++) {
+      pages.push(i)
+    }
+    
+    // Aggiungi puntini se c'è un gap prima dell'ultima pagina
+    if (end < totalPages - 1) {
+      pages.push('ellipsis')
+    }
+    
+    // Sempre mostra l'ultima pagina
+    pages.push(totalPages)
+    
+    return pages
+  }
 </script>
 
 <style>
