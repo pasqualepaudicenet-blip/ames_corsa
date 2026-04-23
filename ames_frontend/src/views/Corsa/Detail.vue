@@ -1,7 +1,9 @@
 <template>
     <admin-layout>
-        <div class="container-fluid d-flex flex-column align-items-center border  rounded shadow detail-card">
-            <h1 class="mt-3 mb-4">Dettaglio corsa</h1>
+        <router-link :to="{ name : 'CorseList' }" class="btn btn-outline-primary  align-self-start px-3 py-1 my-2"> Torna alla lista</router-link>
+        <h1 class="mt-3 mb-4 text-center">Dettaglio corsa</h1>
+
+        <div class="container-fluid col-6 d-flex flex-column align-items-center border  rounded shadow detail-card py-3">
             
             <ul v-if="corsa">
                 <li>
@@ -74,7 +76,7 @@ onMounted(() => {
  <style>
  .detail-card:hover{overflow: auto;}
 .detail-card{
-    height: 100%;
+    height: 80%;
     overflow: hidden;
 }
 

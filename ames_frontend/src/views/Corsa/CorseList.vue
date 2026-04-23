@@ -7,8 +7,8 @@
 </template>
 
 <script setup>
-import AdminLayout from '../components/layout/AdminLayout.vue'
-import BasicTableOne from '../components/tables/basic-tables/BasicTableOne.vue'
+import AdminLayout from '@/components/layout/AdminLayout.vue'
+import BasicTableOne from '@/components/tables/basic-tables/BasicTableOne.vue'
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import api from "@/api/axios";

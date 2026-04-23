@@ -24,17 +24,34 @@ const router = createRouter({
                       {
                         path: 'corse-list',
                         name: 'CorseList',
-                        component: () => import('@/views/CorseList.vue'),
+                        component: () => import('@/views/Corsa/CorseList.vue'),
                         meta: {
                           title: 'Lista corse',
                         },
                       },
+                      
                       {
                         path: '/corsa-detail/:id',
                         name: 'CorsaDetail',
                         component: () => import('../views/Corsa/Detail.vue'),
                         meta: {
                           title: 'Calendar',
+                        },
+                      },
+                      {
+                        path: 'users-list',
+                        name: 'UsersList',
+                        component: () => import('@/views/User/UsersList.vue'),
+                        meta: {
+                          title: 'Lista utenti',
+                        },
+                      },
+                      {
+                        path: 'users-detail/:id',
+                        name: 'UserDetail',
+                        component: () => import('@/views/User/UserDetail.vue'),
+                        meta: {
+                          title: 'Lista utenti',
                         },
                       },
                       {

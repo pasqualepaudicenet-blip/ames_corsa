@@ -64,7 +64,7 @@
               </template>
               <HorizontalDots v-else />
             </h2>
-            <ul class="flex flex-col gap-4 pl-1 align-items-center">
+            <ul class="flex flex-col gap-4 pl-1 align-items-start">
               <li class="text-center" v-for="(item, index) in menuGroup.items" :key="item.name">
                 <button
                   v-if="item.subItems"
@@ -241,10 +241,16 @@ const menuGroups = [
   {
     title: "Menu",
     items: [
+      
       {
         icon: GridIcon,
         name: "Dashboard",
         path: "/", pro: false ,
+      },
+       {
+        icon: UserCircleIcon,
+        name: "Utenti",
+        path: "/users-list", pro: false ,
       },
       {
         icon: CalenderIcon,

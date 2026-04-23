@@ -20,7 +20,6 @@ class DieciProdottiPagination(PageNumberPagination):
 
 
 class CorsaViewSet(viewsets.ModelViewSet):
-    print("VIEWSET CARICATO") 
     queryset = Corsa.objects.all()
     pagination_class = StandardResultsSetPagination
     permission_classes = [permissions.IsAuthenticated]
