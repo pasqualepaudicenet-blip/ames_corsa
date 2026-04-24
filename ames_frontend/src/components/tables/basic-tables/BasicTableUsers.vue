@@ -1,6 +1,5 @@
 <template>
   <div class="container d-flex flex-column align-items-center">
-    <ClickingManAnimation :shouldAnimate="animatingUserId !== null" />
      <div class=" input-group  mt-1 mb-2 d-flex justify-content-end">
     <div class=" d-flex justify-content-around align-items-center ">
       <div class="d-flex flex-column justify-content-center mr-3">

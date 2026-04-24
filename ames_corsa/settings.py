@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django_filters',
     'corsheaders',
     'ames_api',
+    'rest_framework_simplejwt',
 
 ]
 

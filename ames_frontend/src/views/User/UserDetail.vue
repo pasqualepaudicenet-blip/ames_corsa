@@ -61,6 +61,7 @@ const getUser = async () => {
     try {
       const response = await api.get(apiUrl)
       user.value = response.data
+      console.log(user.value)
     } catch (err) {
       errore.value = "Errore nel caricamento dati: " + err.message
     }
