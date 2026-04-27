@@ -44,7 +44,6 @@ class CorsaViewSet(viewsets.ModelViewSet):
             filters &= Q(description__icontains=description)
         if tipo:
             filters &= Q(type__icontains=tipo)
-
         if filters:
             queryset = queryset.filter(filters)
         return queryset 

@@ -160,11 +160,11 @@ watch([searchUsername, searchEmail], () => {
   timeout = setTimeout(() => {
     if ((searchUsername.value.length >= 3 || searchUsername.value === '') &&
         (searchEmail.value.length >= 3 || searchEmail.value === '')) {
-      let url = props.apiUrl || ''  
-      const params = new URLSearchParams()
-      if (searchUsername.value) params.append('username', searchUsername.value)
-      if (searchEmail.value) params.append('email', searchEmail.value)
-      if (url.includes('?')) {
+        let url = props.apiUrl || ''  
+        const params = new URLSearchParams()
+        if (searchUsername.value) params.append('username', searchUsername.value)
+        if (searchEmail.value) params.append('email', searchEmail.value)
+        if (url.includes('?')) {
         url = url.split('?')[0] + '?' + params.toString()
       } else if (params.toString()) {
         url = url + '?' + params.toString()
