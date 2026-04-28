@@ -23,6 +23,7 @@ const fetchCorse = async (url = apiUrl) => {
   try {
     const response = await api.get(url);
     corse.value = response.data;
+    console.log(response.data);
   } catch (err) {
     console.error(err);
   }

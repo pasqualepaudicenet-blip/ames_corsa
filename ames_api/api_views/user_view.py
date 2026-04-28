@@ -3,12 +3,28 @@ from rest_framework import viewsets, permissions
 from ames_api.models import CustomUser
 from ames_api.serializers import UserSerializer
 from rest_framework.response import Response
+from rest_framework.pagination import PageNumberPagination
+from .pagination import StandardResultsSetPagination
 from rest_framework import status
 from rest_framework import generics
 from django.core.cache import cache
 from django.db.models import Q
 
+class DieciProdottiPagination(PageNumberPagination):
+    page_size = 1
+
+    def get_paginated_response(self, data):
+        return Response({
+            'count': self.page.paginator.count,
+            'total_ps': self.page.paginator.num_pages, 
+            'current_page': self.page.number,
+            'next': self.get_next_link(),
+            'previous': self.get_previous_link(),
+            'results': data
+        })
+
 class UserViewSet(viewsets.ModelViewSet):
+    pagination_class = DieciProdottiPagination
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
     

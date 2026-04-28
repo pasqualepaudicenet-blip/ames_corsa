@@ -1,5 +1,5 @@
 <template>
-    <div class="container" @mousemove="handleMouseMove" @mouseleave="handleMouseLeave" style="position: relative; width: 350px; height: 300px;">
+    <div class="container" @mouseleave="handleMouseLeave" style="position: relative; width: 350px; height: 300px;">
         <div style="width:350px;height:300px; position: relative;" id="run"
         class="card rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03] d-flex flex-column cards-hover"
         :class="isHovered ? 'shadow' : 'shadow-sm'"
