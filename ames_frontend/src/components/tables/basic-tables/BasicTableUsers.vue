@@ -80,11 +80,13 @@
              {{ user.email }}
             </td>
             <td class=" py-4 sm:px-6 d-flex justify-content-center" >
-              <button @click="handleDetailClick(user.id)" class="btn bg-primary bigger-on-hover" title="Dettagli utente">
+              <router-link class="btn bg-primary bigger-on-hover" title="Dettagli" :to="{ name: 'UserDetail', params: { id: user.id } }">
                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0,0,256,256">
                   <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="none" stroke-linecap="none" stroke-linejoin="none" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.33333,5.33333)"><path d="M31.4,41c-2.3,1 -4.8,1.5 -7.4,1.5c-10.2,0 -18.5,-8.3 -18.5,-18.5c0,-4.5 1.6,-8.6 4.2,-11.8" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path><path d="M16.3,7.2c2.3,-1.1 5,-1.7 7.7,-1.7c10.2,0 18.5,8.3 18.5,18.5c0,4 -1.3,7.7 -3.4,10.7" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="24" cy="16" r="2" fill="#ffffff" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter"></circle><path d="M24,22.5v11" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="miter"></path></g></g>
-                </svg>          
-              </button>
+                </svg>   
+              </router-link>
+              
+                       
             </td>
           </tr>
         </tbody>
@@ -175,13 +177,6 @@ watch([searchUsername, searchEmail], () => {
   }, 300)
  }) 
 
- function handleDetailClick(userId) {
-   animatingUserId.value = userId
-   setTimeout(() => {
-     router.push({ name: 'UserDetail', params: { id: userId } })
-     animatingUserId.value = null
-   }, 800)
- }
 
  function get_url(page){
    if (current_url.value.includes('?')) {

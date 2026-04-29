@@ -27,6 +27,7 @@ const router = createRouter({
                         component: () => import('@/views/Corsa/CorseList.vue'),
                         meta: {
                           title: 'Lista corse',
+                          requiresAuth: true
                         },
                       },
                       
@@ -36,6 +37,7 @@ const router = createRouter({
                         component: () => import('../views/Corsa/Detail.vue'),
                         meta: {
                           title: 'Calendar',
+                          requiresAuth: true
                         },
                       },
                       {
@@ -44,6 +46,7 @@ const router = createRouter({
                         component: () => import('@/views/User/UsersList.vue'),
                         meta: {
                           title: 'Lista utenti',
+                          requiresAuth: true
                         },
                       },
                       {
@@ -52,6 +55,7 @@ const router = createRouter({
                         component: () => import('@/views/User/UserDetail.vue'),
                         meta: {
                           title: 'Lista utenti',
+                          requiresAuth: true
                         },
                       },
                       {

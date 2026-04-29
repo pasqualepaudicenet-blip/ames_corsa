@@ -9,9 +9,10 @@ from rest_framework import status
 from rest_framework import generics
 from django.core.cache import cache
 from django.db.models import Q
-
+from ..permission.user_permissions import UserPermission
+from rest_framework.decorators import action
 class DieciProdottiPagination(PageNumberPagination):
-    page_size = 1
+    page_size = 10
 
     def get_paginated_response(self, data):
         return Response({
@@ -33,8 +34,8 @@ class UserViewSet(viewsets.ModelViewSet):
     def get_permissions(self):
         if self.action in ['update', 'partial_update', 'destroy']:
             # Solo l'utente stesso o un admin può modificare/cancellare
-            return [permissions.IsAuthenticated()] 
-        return [permissions.AllowAny()]
+            return [UserPermission()]
+        return [UserPermission()]
     
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -49,6 +50,15 @@ class UserViewSet(viewsets.ModelViewSet):
         if filters:
             queryset = queryset.filter(filters)
         return queryset 
+
+
+    @action(detail=False, methods=['get'], permission_classes=[permissions.IsAuthenticated])
+    def me(self, request):
+        return Response({
+            "id": request.user.id,
+            "username": request.user.username,
+            "is_superuser": request.user.is_superuser,
+        })
 
     def list(self, request, *args, **kwargs):
         params_string = str(sorted(request.query_params.items()))
@@ -73,3 +83,6 @@ class UserViewSet(viewsets.ModelViewSet):
         #cache.set(cache_key, data, timeout=60 * 5)
 
         return Response(data)
+
+
+   

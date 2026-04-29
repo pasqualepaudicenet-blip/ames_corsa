@@ -50,7 +50,7 @@
     >
       <nav class="mb-6">
         <div class="flex flex-col gap-4">
-          <div v-for="(menuGroup, groupIndex) in menuGroups" :key="groupIndex">
+          <div v-for="(menuGroup, groupIndex) in filteredMenuGroups" :key="groupIndex">
             <h2
               :class="[
                 'mb-4 text-xs uppercase flex leading-[20px] text-gray-400',
@@ -212,7 +212,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useRoute } from "vue-router";
 
 import {
@@ -245,17 +245,20 @@ const menuGroups = [
       {
         icon: GridIcon,
         name: "Dashboard",
-        path: "/", pro: false ,
+        path: "/", 
+        pro: false ,
       },
        {
         icon: UserCircleIcon,
         name: "Utenti",
         path: "/users-list", pro: false ,
+        requiresSuperuser: true,
       },
       {
         icon: CalenderIcon,
         name: "Lista Corse",
         path: "/corse-list",
+        pro: false ,
       },
       // {
       //   icon: UserCircleIcon,
@@ -277,33 +280,7 @@ const menuGroups = [
       //},
     ],
   },
-  // {
-  //   title: "skip",
-  //   items: [
-     
-  //    // {
-  //    //   icon: BoxCubeIcon,
-  //    //   name: "Ui Elements",
-  //    //   subItems: [
-  //    //     { name: "Alerts", path: "/alerts", pro: false },
-  //    //     { name: "Avatars", path: "/avatars", pro: false },
-  //    //     { name: "Badge", path: "/badge", pro: false },
-  //    //     { name: "Buttons", path: "/buttons", pro: false },
-  //    //     { name: "Images", path: "/images", pro: false },
-  //    //     { name: "Videos", path: "/videos", pro: false },
-  //    //   ],
-  //    // },
-  //     {
-  //       icon: PlugInIcon,
-  //       name: "Authentication",
-  //       subItems: [
-  //         { name: "Signin", path: "/signin", pro: false },
-  //         { name: "Signup", path: "/signup", pro: false },
-  //       ],
-  //     },
-  //     // ... Add other menu items here
-  //   ],
-  // },
+ 
 ];
 
 const isActive = (path) => route.path === path;
@@ -344,4 +321,34 @@ const startTransition = (el) => {
 const endTransition = (el) => {
   el.style.height = "";
 };
+
+import api from '@/api/axios'
+const apiUrl = 'api/users/me'
+const user = ref(null);
+const fetchUser = async (url = apiUrl) => {
+  try {
+    const response = await api.get('api/users/me');
+    user.value = response.data;
+    //alert(user.value.is_superuser)
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+const filteredMenuGroups = computed(() => {
+  return menuGroups.map(group => ({
+    ...group,
+    items: group.items.filter(item => {
+      if (item.requiresSuperuser) {
+        return user.value?.is_superuser;
+      }
+      return true;
+    })
+  }));
+});
+
+
+onMounted(() => {
+  fetchUser();
+});
 </script>
