@@ -64,7 +64,7 @@
               </template>
               <HorizontalDots v-else />
             </h2>
-            <ul class="flex flex-col gap-4 pl-1 align-items-start">
+            <ul class="flex flex-col gap-4 pl-1 align-items-center">
               <li class="text-center" v-for="(item, index) in menuGroup.items" :key="item.name">
                 <button
                   v-if="item.subItems"
