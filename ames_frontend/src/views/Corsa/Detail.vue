@@ -25,9 +25,11 @@
                     <div class="w-100">
                         <table class="vw-75 border border-gray-200 bg-white w-100 table-striped
                             dark:border-gray-800 dark:bg-white/[0.03] table-responsive table-bordered rounded-x1">
-                            <thead >
-                                <th class="px-5 py-3 text-center w-50" >ID</th>
-                                <th class="px-5 py-3 text-center w-50">Nome</th>
+                            <thead>
+                                <tr>
+                                    <th class="px-5 py-3 text-center w-50" >ID</th>
+                                    <th class="px-5 py-3 text-center w-50">Nome</th>
+                                </tr>
                             </thead>
                             <tbody class="divide-y  divide-gray-200">
                                 <tr v-for="sample in corsa.samples">

@@ -111,7 +111,7 @@
                   v-else-if="item.path"
                   :to="item.path"
                   :class="[
-                    'menu-item group',
+                    'menu-item  group',
                     {
                       'menu-item-active': isActive(item.path),
                       'menu-item-inactive': !isActive(item.path),
@@ -230,8 +230,8 @@ import {
   ListIcon,
   PlugInIcon,
 } from "../../icons";
-import BoxCubeIcon from "@/icons/BoxCubeIcon.vue";
 import { useSidebar } from "@/composables/useSidebar";
+import { useUserStore } from '@/stores/user'
 
 const route = useRoute();
 
@@ -260,24 +260,6 @@ const menuGroups = [
         path: "/corse-list",
         pro: false ,
       },
-      // {
-      //   icon: UserCircleIcon,
-      //   name: "User Profile",
-      //   path: "/profile",
-      // },
-      //{
-      //  name: "Tables",
-      //  icon: TableIcon,
-      //  subItems: [{ name: "Basic Tables", path: "/basic-tables", pro: false }],
-      //},
-      //{
-      //  name: "Pages",
-      //  icon: PageIcon,
-      //  subItems: [
-      //    { name: "Black Page", path: "/blank", pro: false },
-      //    { name: "404 Page", path: "/error-404", pro: false },
-      //  ],
-      //},
     ],
   },
  
@@ -325,30 +307,33 @@ const endTransition = (el) => {
 import api from '@/api/axios'
 const apiUrl = 'api/users/me'
 const user = ref(null);
-const fetchUser = async (url = apiUrl) => {
-  try {
-    const response = await api.get('api/users/me');
-    user.value = response.data;
-    //alert(user.value.is_superuser)
-  } catch (err) {
-    console.error(err)
-  }
-}
+
+
+
+
+const userStore = useUserStore()
 
 const filteredMenuGroups = computed(() => {
   return menuGroups.map(group => ({
     ...group,
     items: group.items.filter(item => {
       if (item.requiresSuperuser) {
-        return user.value?.is_superuser;
+        return userStore.value?.is_superuser;
       }
       return true;
     })
   }));
 });
 
-
 onMounted(() => {
-  fetchUser();
-});
+  userStore.fetchUser()
+})
 </script>
+
+
+<style>
+  a{
+    color:black;
+    text-decoration:none
+  }
+</style>
