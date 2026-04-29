@@ -23,10 +23,7 @@ class CorsaViewSet(viewsets.ModelViewSet):
     queryset = Corsa.objects.all()
     pagination_class = StandardResultsSetPagination
     permission_classes = [permissions.IsAuthenticated]
-
-    
-    #filter_backends = [DjangoFilterBackend]
-    #filterset_fields = ['description', 'type']
+   
     def get_serializer_class(self):
         if self.action == 'list':
             return CorsaListSerializer
