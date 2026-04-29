@@ -16,7 +16,7 @@ class DieciProdottiPagination(PageNumberPagination):
     def get_paginated_response(self, data):
         return Response({
             'count': self.page.paginator.count,
-            'total_ps': self.page.paginator.num_pages, 
+            'total_pages': self.page.paginator.num_pages, 
             'current_page': self.page.number,
             'next': self.get_next_link(),
             'previous': self.get_previous_link(),
@@ -55,9 +55,9 @@ class UserViewSet(viewsets.ModelViewSet):
         user_part = f"user_{request.user.id}" if request.user.is_authenticated else "anon"
         cache_key = f"user_list_{user_part}_{hashlib.md5(params_string.encode()).hexdigest()}"
 
-        cached_data = cache.get(cache_key)
-        if cached_data:
-            return Response(cached_data)
+        #cached_data = cache.get(cache_key)
+        #if cached_data:
+        #    return Response(cached_data)
 
         # usa il flow DRF corretto
         queryset = self.filter_queryset(self.get_queryset())
@@ -70,6 +70,6 @@ class UserViewSet(viewsets.ModelViewSet):
             serializer = self.get_serializer(queryset, many=True)
             data = serializer.data
 
-        cache.set(cache_key, data, timeout=60 * 5)
+        #cache.set(cache_key, data, timeout=60 * 5)
 
         return Response(data)
