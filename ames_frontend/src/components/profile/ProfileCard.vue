@@ -12,7 +12,7 @@
             <h4
               class="mb-2 text-lg font-semibold text-center text-gray-800 dark:text-white/90 xl:text-left"
             >
-               Avatar
+               {{ userStore.user?.username }}
             </h4>
             <div
               class="flex flex-col items-center gap-1 text-center xl:flex-row xl:gap-3 xl:text-left"
@@ -245,7 +245,7 @@
                       value="Chowdhury"
                       class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800"
                     />
-                  </div>
+                  </div>randomuser
 
                   <div class="col-span-2 lg:col-span-1">
                     <label
@@ -255,7 +255,7 @@
                     </label>
                     <input
                       type="text"
-                      value="randomuser@pimjo.com"
+                      value="{{ userStore.user?.email }}"
                       class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800"
                     />
                   </div>
@@ -312,11 +312,13 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import Modal from './Modal.vue'
+import { useUserStore } from '@/stores/user'
+
+const userStore = useUserStore()
 
 const isProfileInfoModal = ref(false)
-
 const saveProfile = () => {
   // Implement save profile logic here
   console.log('Profile saved')

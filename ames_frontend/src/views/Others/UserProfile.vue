@@ -20,5 +20,8 @@ import { ref } from 'vue'
 import ProfileCard from '../../components/profile/ProfileCard.vue'
 import PersonalInfoCard from '../../components/profile/PersonalInfoCard.vue'
 import AddressCard from '../../components/profile/AddressCard.vue'
+import { useUserStore } from '@/stores/user'
+
+const userStore = useUserStore()
 const currentPageTitle = ref('User Profile')
 </script>
