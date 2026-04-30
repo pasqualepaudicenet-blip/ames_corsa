@@ -18,6 +18,9 @@
                 </p>
               </div>
               <div>
+                <div id="alerts">
+
+                </div>
                
                 <form @submit.prevent="handleSubmit">
                   <div class="space-y-5">
@@ -219,6 +222,11 @@ const handleSubmit = async () => {
     router.push("/")
 
   } catch (error) {
+      document.getElementById("alerts").innerHTML = `
+      <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg" role="alert">
+         Username o password errati.
+      </div>
+    `;
     console.error("Errore login", error.response?.data);
   }
 }
