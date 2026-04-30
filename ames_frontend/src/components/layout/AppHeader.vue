@@ -80,7 +80,7 @@
             <ThemeToggler />
             <NotificationMenu />
           </div>
-          <UserMenu class="mr-5" />
+          <UserMenu id="user-menu" class="mr-5" />
       
         
       </div>
@@ -101,7 +101,9 @@ import UserMenu from './header/UserMenu.vue'
 
 const { toggleSidebar, toggleMobileSidebar, isMobileOpen } = useSidebar()
 
-const handleToggle = () => {
+const handleToggle = () => {  
+  var userMenu = document.querySelector('#user-menu')
+  userMenu.classList.toggle('mr-5')
   if (window.innerWidth >= 1024) {
     toggleSidebar()
   } else {
