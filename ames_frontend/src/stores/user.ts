@@ -10,13 +10,17 @@ export const useUserStore = defineStore('user', {
 
   actions: {
     async fetchUser() {
-      if (this.loaded) return  
+      const token = localStorage.getItem("access")
+      if (!token) return
+      if (this.user && this.loaded) return  
       try {
         const res = await api.get('api/users/me')
         this.user = res.data
         this.loaded = true
       } catch (err) {
         console.error(err)
+        this.loaded = false
+        this.user = null
       }
     }
   }

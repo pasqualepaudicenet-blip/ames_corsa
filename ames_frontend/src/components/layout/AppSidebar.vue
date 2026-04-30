@@ -313,7 +313,6 @@ const user = ref(null);
 
 
 const userStore = useUserStore()
-console.log(userStore.user);
 const filteredMenuGroups = computed(() => {
   return menuGroups.map(group => ({
     ...group,

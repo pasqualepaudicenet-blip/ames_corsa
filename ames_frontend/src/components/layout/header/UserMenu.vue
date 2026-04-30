@@ -8,7 +8,7 @@
         <img src="https://img.icons8.com/?size=100&id=7820&format=png&color=000000" alt="User" />
       </span>
 
-      <span class="block mr-1 font-medium text-theme-sm">Avatar </span>
+      <span class="block mr-1 font-medium text-theme-sm">{{userStore.user?.username}} </span>
 
       <ChevronDownIcon :class="{ 'rotate-180': dropdownOpen }" />
     </button>
@@ -101,6 +101,7 @@ const handleClickOutside = (event) => {
 }
 
 onMounted(() => {
+  userStore.fetchUser()
   document.addEventListener('click', handleClickOutside)
 })
 
