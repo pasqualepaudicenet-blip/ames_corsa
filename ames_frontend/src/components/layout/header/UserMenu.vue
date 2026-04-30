@@ -80,12 +80,16 @@ const closeDropdown = () => {
   dropdownOpen.value = false
 }
 import { useRouter } from "vue-router"
+import { useUserStore } from '@/stores/user'
+
 const router = useRouter()
+const userStore = useUserStore()
 const signOut = () => {
   // Implement sign out logic here
   localStorage.removeItem('access') 
   localStorage.removeItem('refreshn') 
-  
+  userStore.loaded = false
+  userStore.user = null
   router.push({ name: "Signin" })
   closeDropdown()
 }

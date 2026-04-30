@@ -305,6 +305,7 @@ const endTransition = (el) => {
 };
 
 import api from '@/api/axios'
+import { isTypeAliasDeclaration } from "typescript";
 const apiUrl = 'api/users/me'
 const user = ref(null);
 
@@ -312,13 +313,13 @@ const user = ref(null);
 
 
 const userStore = useUserStore()
-
+console.log(userStore.user);
 const filteredMenuGroups = computed(() => {
   return menuGroups.map(group => ({
     ...group,
     items: group.items.filter(item => {
       if (item.requiresSuperuser) {
-        return userStore.value?.is_superuser;
+        return userStore.user?.is_superuser;
       }
       return true;
     })

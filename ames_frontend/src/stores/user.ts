@@ -11,7 +11,6 @@ export const useUserStore = defineStore('user', {
   actions: {
     async fetchUser() {
       if (this.loaded) return  
-
       try {
         const res = await api.get('api/users/me')
         this.user = res.data
